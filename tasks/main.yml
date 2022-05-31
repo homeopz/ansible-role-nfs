@@ -8,10 +8,10 @@
 - name: Mounting NFS exports
   mount:
     fstype: "{{ item['fstype'] }}"
-    opts: "{{ (item['opts']|join(','))|default(omit) }}"
+    opts: "{{ item['opts'] | default(omit) }}"
     path: "{{ item['path'] }}"
     src: "{{ item['src'] }}"
-    state: "{{ item['state']|default('mounted') }}"
+    state: "{{ item['state'] |default('mounted') }}"
   become: true
   with_items: '{{ nfs_mounts }}'
   when: nfs_mounts is defined
