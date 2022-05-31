@@ -11,7 +11,7 @@
     opts: "{{ (item['opts']|join(','))|default(omit) }}"
     path: "{{ item['path'] }}"
     src: "{{ item['src'] }}"
-    state: "{{ item['state'] }}"
+    state: "{{ item['state']|default('mounted') }}"
   become: true
   with_items: '{{ nfs_mounts }}'
   when: nfs_mounts is defined
