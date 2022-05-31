@@ -7,7 +7,7 @@
 
 - name: Mounting NFS exports
   mount:
-    fstype: "{{ item['fstype'] }}"
+    fstype: "{{ item['fstype'] | default('nfs') }}"
     opts: "{{ item['opts'] | default(omit) }}"
     path: "{{ item['path'] }}"
     src: "{{ item['src'] }}"
