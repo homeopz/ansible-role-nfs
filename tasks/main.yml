@@ -1,0 +1,17 @@
+---
+- name: Installing NFS Client Packages
+  apt:
+    name:
+      - nfs-common
+    state: present
+
+- name: Mounting NFS exports
+  mount:
+    fstype: "{{ item['fstype'] }}"
+    opts: "{{ (item['opts']|join(','))|default(omit) }}"
+    path: "{{ item['path'] }}"
+    src: "{{ item['src'] }}"
+    state: "{{ item['state'] }}"
+  become: true
+  with_items: '{{ nfs_mounts }}'
+  when: nfs_mounts is defined
